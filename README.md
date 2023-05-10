@@ -127,9 +127,9 @@ delete B;
 
 如图所示，栈是头插头出，队列是尾插头出，所以两者在push插入节点时会有较大区别。(实际上在pop上也存在一些区别，具体下面会讲)
 
-![stack](C:\Users\偏执狂\Desktop\non-block\stack.png)
+![stack](https://github.com/xuhaoran1/Non-blocking-queue-and-stack/blob/master/pic/stack.png)
 
-![queue](C:\Users\偏执狂\Desktop\non-block\queue.png)
+![queue](https://github.com/xuhaoran1/Non-blocking-queue-and-stack/blob/master/pic/queue.png)
 
 我们知道，push插入节点有两个步骤:1.将新节点与原节点相连2.更新头或尾指针(head/tail)，这两步在头插(也就是栈中)，可以只使用一次CAS，而队列的尾插，则需要使用两次CAS，一次连接，一次更新head/tail指针
 
