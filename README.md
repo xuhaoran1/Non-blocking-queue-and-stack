@@ -34,7 +34,7 @@
 
 **wait-free**:wait-free数据结构是一种lock-free的数据结构，它具有一个附加属性，即不管其他线程的行为如何，访问该数据结构的每个线程都可以在有限的步骤内完成其操作。而由于与其他线程的冲突，可能涉及无限次重试的算法因此不是无等待的。换句话说，也就是没有**活锁(livelock)**这种情况。
 
-![概念展示](C:\Users\偏执狂\Desktop\non-block\概念展示.png)
+![概念展示](https://github.com/xuhaoran1/Non-blocking-queue-and-stack/blob/master/pic/概念展示.png)
 
 我这里实现的CAS无锁化栈和队列都存在ABA问题，关于CAS实现中ABA问题的具体解释和解决方案，可以参考：
 
@@ -161,7 +161,7 @@ node->next = head.load();对于每个线程来说，将新node与head相连，�
 
 无锁化队列的push如下
 
-![队列无锁化插入](C:\Users\偏执狂\Desktop\non-block\队列无锁化插入.png)
+![队列无锁化插入](https://github.com/xuhaoran1/Non-blocking-queue-and-stack/blob/master/pic/队列无锁化插入.png)
 
 无锁化队列的实现时，和无锁化栈的实现有一些区别，第一点是无锁化队列需要使用dummy node，即虚拟头节点，不然最后一个节点和第一个节点要特殊处理，比较麻烦。第二点是之前的头插改成了尾插，因此整体上要做两次CAS。
 
@@ -190,7 +190,7 @@ temp的判断要放到循环里面，用while随时判断temp是否为nullptr，
 
 虽然二者都是头插，看上去代码好像是可以一样的。但栈只有一个指针，而队列有两个指针要更新，所以会有一个corner case，即head==tail的时候，不一定是队列空了，也可能是此时的tail还没更新，如下面无锁化队列的pop删除，伪代码所示：
 
-![队列无锁化删除](C:\Users\偏执狂\Desktop\non-block\队列无锁化删除.png)
+![队列无锁化删除](https://github.com/xuhaoran1/Non-blocking-queue-and-stack/blob/master/pic/队列无锁化删除.png)
 
 D6-D10展示了上述判断，不再赘述。
 
